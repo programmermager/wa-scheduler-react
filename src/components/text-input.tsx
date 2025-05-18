@@ -10,6 +10,7 @@ interface TextInputProps {
   value?: string;
   name?: string;
   className?: string;
+  prefixIcon?: FC;
   rules?: RegisterOptions;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }

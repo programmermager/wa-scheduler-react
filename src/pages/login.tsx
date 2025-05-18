@@ -3,13 +3,18 @@ import TextInput from "../components/text-input";
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
+import useApi from "../hooks/use-api";
 
 const Login = () => {
   const navigate = useNavigate();
   const methods = useForm();
+  const reqLogin = useApi();
 
   const onSubmit = (data: unknown) => {
-    console.log(data);
+    reqLogin.request(
+      { method: "POST", url: "login", data: data },
+      { showErrorToast: true }
+    );
   };
   return (
     <>
@@ -35,7 +40,12 @@ const Login = () => {
                 required: "Kata Sandi wajib di isi",
               }}
             />
-            <Button type="submit" text="Login" className="w-96" />
+            <Button
+              isLoading={reqLogin.loading}
+              type="submit"
+              text="Login"
+              className="w-96"
+            />
             <text>
               Belum punya akun?{" "}
               <a onClick={() => navigate("/register")}>Daftar dong!</a>
