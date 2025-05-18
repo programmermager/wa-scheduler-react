@@ -5,16 +5,20 @@ interface ButtonProps {
   color?: string;
   text?: string;
   className?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 const Button: FC<ButtonProps> = ({
   color = "bg-green-700",
   text,
   className,
+  type = "button",
 }) => {
   return (
     <div className="w-full">
-      <button className={clsx("rounded-lg", color, className)}>{text}</button>
+      <button type={type} className={clsx("rounded-lg", color, className)}>
+        {text}
+      </button>
     </div>
   );
 };
