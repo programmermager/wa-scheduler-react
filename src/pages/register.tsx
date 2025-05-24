@@ -3,12 +3,25 @@ import logo from "../assets/logo.png";
 import Button from "../components/button";
 import TextInput from "../components/text-input";
 import { FormProvider, useForm } from "react-hook-form";
+import useApi from "../hooks/use-api";
+import { toast } from "sonner";
 
 const Register = () => {
   const navigate = useNavigate();
   const methods = useForm();
+  const reqRegister = useApi();
+
   const onSubmit = (data: unknown) => {
     console.log(data);
+    reqRegister.request(
+      { method: "POST", url: "register", data: data },
+      {
+        showErrorToast: true,
+        onSuccess(data) {
+          toast.success(`Berhasil ${data}`);
+        },
+      }
+    );
   };
 
   return (
@@ -65,14 +78,19 @@ const Register = () => {
             </div>
             <TextInput
               label="Token Fonte"
-              name="token"
+              name="fonnte_token"
               type="text"
               rules={{
                 required: "Token Wajib Di isi",
               }}
               className="w-full"
             />
-            <Button type="submit" text="Daftar" className="w-full" />
+            <Button
+              isLoading={reqRegister.loading}
+              type="submit"
+              text="Daftar"
+              className="w-full"
+            />
             <text>
               Sudah punya akun? <a onClick={() => navigate(-1)}>Login dong!</a>
             </text>
