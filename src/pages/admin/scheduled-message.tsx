@@ -1,27 +1,33 @@
 import Button from "../../components/button";
 
 const ScheduledMessage =()=>{
+    const items = [1, 2, 3, 4, 5];
+
+    const ItemMessage=()=>{
+        return (
+            <div className="bg-blue-50 rounded-2xl shadow-lg p-5 flex flex-col gap-2 mt-6">
+                <div className="flex justify-between">
+                        <span className="font-medium">Kepada : 0843787234</span>
+                        <span className="font-medium">Dari : 0843787234</span>
+                    
+                </div>
+                
+                    <span >Hai, tolong call me</span>
+                <div className="flex justify-between">
+                <div className="bg-orange-200 text-orange-400 px-2 py-1 rounded-xl w-fit">Menunggu Antrian</div>
+                <span className="text-red-600">Hapus</span>
+                </div>
+           </div>
+        )
+    }
+
     return (
         <div className="flex flex-col">
             <div className="justify-between flex flex-row items-center">
                 <span className="text-xl font-medium">Pesan Terjadwal</span>
                 <Button text="Tambah Pesan"/>
             </div>
-            <div className="rounded-t-md border border-gray-300 m-5 mt-6">
-                <div className="grid bg-gray-100  p-3 grid-cols-[2fr_1fr_1fr_1fr] grid-flow-col gap-4 font-medium ">
-                    <div>Pesan</div>
-                    <div>Tujuan</div>
-                    <div>Sender</div>
-                    <div>Jadwal Kirim</div>
-                </div>
-
-                <div className="grid  p-3 grid-cols-[2fr_1fr_1fr_1fr] grid-flow-col gap-4">
-                    <div>Pesan</div>
-                    <div>Tujuan</div>
-                    <div>Sender</div>
-                    <div>Jadwal Kirim</div>
-                </div>
-            </div>
+          {items.map((item)=> <ItemMessage/>)}
        </div>
     );
 }
