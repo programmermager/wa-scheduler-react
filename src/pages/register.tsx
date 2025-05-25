@@ -85,7 +85,7 @@ const Register = () => {
               }}
               className="w-full"
             />
-            <Button 
+            <Button
               isLoading={reqRegister.loading}
               type="submit"
               text="Daftar"
@@ -95,7 +95,6 @@ const Register = () => {
               <span>Sudah punya akun? </span>
               <a onClick={() => navigate(-1)}>Login dong!</a>
             </div>
-          
           </div>
         </form>
       </FormProvider>

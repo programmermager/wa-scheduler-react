@@ -1,8 +1,9 @@
-const Devices =()=>{
-    return (<>
-    <span>Devices</span>
-    </>)
-    
-}
+const Devices = () => {
+  return (
+    <>
+      <span>Devices</span>
+    </>
+  );
+};
 
 export default Devices;

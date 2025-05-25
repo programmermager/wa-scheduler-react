@@ -25,7 +25,7 @@ const TextInput: FC<TextInputProps> = (request) => {
   const fieldError = errors[request.name ?? ""]?.message as string | undefined;
 
   return (
-    <div className="flex flex-col items-start gap-1 w-full">
+    <div className="flex flex-col items-start gap-1">
       {request.label && (
         <label className="text-sm font-medium">{request.label}</label>
       )}

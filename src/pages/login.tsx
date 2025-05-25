@@ -15,7 +15,7 @@ const Login = () => {
     //   { method: "POST", url: "login", data: data },
     //   { showErrorToast: true }
     // );
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
   return (
     <div className="flex items-center justify-center w-full bg-white">
