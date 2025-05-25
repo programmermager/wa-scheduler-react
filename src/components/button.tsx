@@ -18,11 +18,9 @@ const Button: FC<ButtonProps> = ({
   type = "button",
 }) => {
   return (
-    <div className="w-full">
-      <button type={type} className={clsx("rounded-lg", color, className)}>
+    <button type={type} className={clsx("rounded-lg border-none text-white", color, className)}>
         {isLoading ? <LoadingCircular /> : text}
       </button>
-    </div>
   );
 };
 

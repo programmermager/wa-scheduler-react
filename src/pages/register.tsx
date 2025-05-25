@@ -25,7 +25,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <div className="flex items-center justify-center w-full bg-white">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center gap-4 w-96">
@@ -85,19 +85,21 @@ const Register = () => {
               }}
               className="w-full"
             />
-            <Button
+            <Button 
               isLoading={reqRegister.loading}
               type="submit"
               text="Daftar"
               className="w-full"
             />
-            <text>
-              Sudah punya akun? <a onClick={() => navigate(-1)}>Login dong!</a>
-            </text>
+            <div className="text-center">
+              <span>Sudah punya akun? </span>
+              <a onClick={() => navigate(-1)}>Login dong!</a>
+            </div>
+          
           </div>
         </form>
       </FormProvider>
-    </>
+    </div>
   );
 };
 
