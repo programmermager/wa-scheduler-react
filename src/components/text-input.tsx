@@ -42,7 +42,7 @@ const TextInput: FC<TextInputProps> = (request) => {
           defaultValue={request.value}
           {...(request.name ? register(request.name, request.rules) : {})}
           className={clsx(
-            "rounded-md border px-2 py-2",
+            "rounded-md border px-2 py-2 border-primary",
             fieldError ? "border-red-500" : "border-gray-50",
             request.className
           )}
