@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div className="w-full h-full">
       <div
-        className="fixed top-0 right-0 w-[400px] h-[400px] bg-no-repeat bg-right-top bg-cover opacity-60"
+        className="fixed top-0 right-0 w-1/2 h-full bg-no-repeat bg-right-top bg-cover opacity-60"
         style={{ backgroundImage: `url(${bg})` }}
       />
       <div className="relative z-1">

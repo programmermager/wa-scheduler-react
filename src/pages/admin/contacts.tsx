@@ -1,28 +1,65 @@
 import { FormProvider, useForm } from "react-hook-form";
 import TextInput from "../../components/text-input";
 import ItemContact from "../../components/item-contact";
+import Button from "../../components/button";
+import Modal from "../../components/modal";
+import { useState } from "react";
 
 const Contacts = () => {
   const index = [0, 1, 2, 3, 4, 5];
   const methods = useForm();
+  const methodsContact = useForm();
+  const [isAddDialogOpen, setAddDialogOpen] = useState(false);
+  const openAddDialog = () => setAddDialogOpen(true);
+  const closeAddDialog = () => setAddDialogOpen(false);
+
+  const ModalAddContact = () => {
+    return (
+      <Modal
+        title="Tambah Kontak"
+        isOpen={isAddDialogOpen}
+        handleClose={closeAddDialog}
+      >
+        <div className="flex flex-col">
+          <FormProvider {...methodsContact}>
+            <TextInput label="Nama" isFull={true} />
+            <TextInput
+              label="Nomor Telepon"
+              isFull={true}
+              classTextInput="mt-2"
+            />
+            <Button text="Tambah" onClick={closeAddDialog} className="mt-2" />
+          </FormProvider>
+        </div>
+      </Modal>
+    );
+  };
 
   return (
     <>
       <div className="flex flex-col">
         <div className="mb-5">
           <FormProvider {...methods}>
-            <TextInput
-              type="email"
-              name="email"
-              className="w-full"
-              placeholder="Cari Nomor Telepon"
-            />
+            <div className="flex">
+              <TextInput
+                type="email"
+                name="email"
+                isFull={true}
+                placeholder="Masukkan Nomor Telepon atau Nama"
+              />
+              <Button
+                text="Tambah Kontak"
+                className="ml-4"
+                onClick={openAddDialog}
+              />
+            </div>
           </FormProvider>
         </div>
         {index.map((i) => (
-          <ItemContact />
+          <ItemContact key={`${i}`} />
         ))}
       </div>
+      <ModalAddContact />
     </>
   );
 };

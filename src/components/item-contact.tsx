@@ -1,8 +1,12 @@
 import { Edit, Trash } from "lucide-react";
 
-const ItemContact = () => {
+interface ItemContactProps {
+  key?: string;
+}
+
+const ItemContact = ({ key }: ItemContactProps) => {
   return (
-    <div className="flex items-center mb-5">
+    <div className="flex items-center mb-5" key={key}>
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLMI5YxZE03Vnj-s-sth2_JxlPd30Zy7yEGg&s"
         className="ml-2 h-5 w-5 cursor-pointer rounded-full shadow-lg lg:h-10 lg:w-10 mr-4"

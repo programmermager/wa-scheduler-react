@@ -10,7 +10,8 @@ const Login = () => {
   const methods = useForm();
   const reqLogin = useApi();
 
-  const onSubmit = (data: unknown) => {
+  // const onSubmit = (data: unknown) => {
+  const onSubmit = () => {
     // reqLogin.request(
     //   { method: "POST", url: "login", data: data },
     //   { showErrorToast: true }
@@ -27,7 +28,7 @@ const Login = () => {
               label="Email"
               type="email"
               name="email"
-              className="w-full"
+              isFull={true}
               // rules={{
               //   required: "Email wajib di isi",
               // }}
@@ -36,7 +37,7 @@ const Login = () => {
               label="Kata Sandi"
               type="password"
               name="password"
-              className="w-full"
+              isFull={true}
               // rules={{
               //   required: "Kata Sandi wajib di isi",
               // }}

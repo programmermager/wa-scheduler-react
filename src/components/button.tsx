@@ -8,6 +8,7 @@ interface ButtonProps {
   className?: string;
   isLoading?: boolean;
   type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -16,11 +17,20 @@ const Button: FC<ButtonProps> = ({
   isLoading,
   className,
   type = "button",
+  onClick = () => {},
 }) => {
   return (
-    <button type={type} className={clsx("rounded-lg border-none text-white", color, className)}>
-        {isLoading ? <LoadingCircular /> : text}
-      </button>
+    <button
+      onClick={onClick}
+      type={type}
+      className={clsx(
+        "rounded-lg border-none text-white min-w-fit",
+        color,
+        className
+      )}
+    >
+      {isLoading ? <LoadingCircular /> : text}
+    </button>
   );
 };
 

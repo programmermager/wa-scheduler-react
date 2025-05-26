@@ -5,11 +5,47 @@ import TextInput from "../components/text-input";
 import { FormProvider, useForm } from "react-hook-form";
 import useApi from "../hooks/use-api";
 import { toast } from "sonner";
+import { useState } from "react";
+import { Info } from "lucide-react";
+import Modal from "../components/modal";
 
 const Register = () => {
   const navigate = useNavigate();
   const methods = useForm();
   const reqRegister = useApi();
+  const [modalInfoOpen, setModalInfoOpen] = useState(false);
+  const closeModalInfo = () => setModalInfoOpen(false);
+
+  const InfoIcon = () => (
+    <Info
+      className="w-4 h-4"
+      onClick={() => {
+        setModalInfoOpen(true);
+      }}
+    />
+  );
+
+  const ModalInfo = () => {
+    return (
+      <Modal
+        title="Token Fonnte"
+        isOpen={modalInfoOpen}
+        handleClose={closeModalInfo}
+      >
+        <div className="flex flex-col items-center justify-center">
+          <Info className="w-[100px] h-[100px] text-primary mb-6" />
+          <span className="mb-6">
+            Untuk mendapatkan token Fonnte silahkan daftar{" "}
+            <a target="_blank" href="https://fonnte.com">
+              disini
+            </a>{" "}
+            terlebih dahulu.
+          </span>
+          <Button text="Tutup" onClick={closeModalInfo} className="w-full" />
+        </div>
+      </Modal>
+    );
+  };
 
   const onSubmit = (data: unknown) => {
     console.log(data);
@@ -34,7 +70,7 @@ const Register = () => {
               label="Nama"
               name="name"
               type="text"
-              className="w-full"
+              isFull={true}
               rules={{
                 required: "Nama Wajib Di isi",
               }}
@@ -43,7 +79,7 @@ const Register = () => {
               label="Email"
               name="email"
               type="email"
-              className="w-full"
+              isFull={true}
               rules={{
                 required: "Email Wajib Di isi",
               }}
@@ -52,7 +88,7 @@ const Register = () => {
               label="Kata Sandi"
               name="password"
               type="password"
-              className="w-full"
+              isFull={true}
               rules={{
                 required: "Kata Sandi Wajib Di isi",
               }}
@@ -64,7 +100,7 @@ const Register = () => {
                   name="country_code"
                   type="number"
                   value="62"
-                  className="w-full"
+                  isFull={true}
                 />
                 <TextInput
                   type="number"
@@ -72,7 +108,7 @@ const Register = () => {
                     required: "Nomor Telepon Wajib Di isi",
                   }}
                   name="phone"
-                  className="w-80 ml-3"
+                  classInput="w-80 ml-3"
                 />
               </div>
             </div>
@@ -83,7 +119,8 @@ const Register = () => {
               rules={{
                 required: "Token Wajib Di isi",
               }}
-              className="w-full"
+              isFull={true}
+              prefixIcon={<InfoIcon />}
             />
             <Button
               isLoading={reqRegister.loading}
@@ -98,6 +135,7 @@ const Register = () => {
           </div>
         </form>
       </FormProvider>
+      <ModalInfo />
     </div>
   );
 };
