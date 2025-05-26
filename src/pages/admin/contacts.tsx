@@ -23,11 +23,25 @@ const Contacts = () => {
         <div className="flex flex-col">
           <FormProvider {...methodsContact}>
             <TextInput label="Nama" isFull={true} />
-            <TextInput
-              label="Nomor Telepon"
-              isFull={true}
-              classTextInput="mt-2"
-            />
+            <div className="flex flex-col items-start gap-1">
+              <text>Nomor Telepon</text>
+              <div className="flex flex-row items-start">
+                <TextInput
+                  name="country_code"
+                  type="number"
+                  value="62"
+                  isFull={true}
+                />
+                <TextInput
+                  type="number"
+                  rules={{
+                    required: "Nomor Telepon Wajib Di isi",
+                  }}
+                  name="phone"
+                  classInput="w-80 ml-3"
+                />
+              </div>
+            </div>
             <Button text="Tambah" onClick={closeAddDialog} className="mt-2" />
           </FormProvider>
         </div>

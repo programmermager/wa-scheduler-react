@@ -4,19 +4,26 @@ import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import useApi from "../hooks/use-api";
+import type { LoginResp } from "../models/login-response";
 
 const Login = () => {
   const navigate = useNavigate();
   const methods = useForm();
-  const reqLogin = useApi();
+  const reqLogin = useApi<LoginResp>();
 
   // const onSubmit = (data: unknown) => {
-  const onSubmit = () => {
-    // reqLogin.request(
-    //   { method: "POST", url: "login", data: data },
-    //   { showErrorToast: true }
-    // );
-    navigate("/dashboard");
+  const onSubmit = (data: unknown) => {
+    reqLogin.request(
+      { method: "POST", url: "login", data: data },
+      {
+        showErrorToast: true,
+        onSuccess: (data) => {
+          const dt = data as LoginResp;
+          localStorage.setItem("token", dt.token);
+          navigate("/dashboard");
+        },
+      }
+    );
   };
   return (
     <div className="flex items-center justify-center w-full bg-white">
@@ -29,18 +36,18 @@ const Login = () => {
               type="email"
               name="email"
               isFull={true}
-              // rules={{
-              //   required: "Email wajib di isi",
-              // }}
+              rules={{
+                required: "Email wajib di isi",
+              }}
             />
             <TextInput
               label="Kata Sandi"
               type="password"
               name="password"
               isFull={true}
-              // rules={{
-              //   required: "Kata Sandi wajib di isi",
-              // }}
+              rules={{
+                required: "Kata Sandi wajib di isi",
+              }}
             />
             <Button
               isLoading={reqLogin.loading}

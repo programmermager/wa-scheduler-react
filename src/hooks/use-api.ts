@@ -20,17 +20,21 @@ interface UseApiResult<T> {
   ) => Promise<void>;
 }
 
-function useApi<T = unknown>(): UseApiResult<T> {
+function useApi<T>(): UseApiResult<T> {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const token = localStorage.getItem("token");
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token && { authorization: `Bearer ${token}` }),
+  };
+
   const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL || "https://api.example.com",
     timeout: 10000,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
   });
 
   const request = useCallback(
