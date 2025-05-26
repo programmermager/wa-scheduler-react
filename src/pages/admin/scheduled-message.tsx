@@ -32,7 +32,7 @@ const ScheduledMessage = () => {
         <span className="text-xl font-medium">Pesan Terjadwal</span>
         <Button text="Tambah Pesan" />
       </div>
-      {items.map((item) => (
+      {items.map(() => (
         <ItemMessage />
       ))}
     </div>
