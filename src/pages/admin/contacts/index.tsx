@@ -1,8 +1,8 @@
 import { FormProvider, useForm } from "react-hook-form";
-import TextInput from "../../components/text-input";
-import ItemContact from "../../components/item-contact";
-import Button from "../../components/button";
-import Modal from "../../components/modal";
+import TextInput from "../../../components/text-input";
+import ItemContact from "../../../components/item-contact";
+import Button from "../../../components/button";
+import Modal from "../../../components/modal";
 import { useState } from "react";
 
 const Contacts = () => {

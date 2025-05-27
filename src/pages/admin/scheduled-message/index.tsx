@@ -1,5 +1,5 @@
 import { Edit, Trash } from "lucide-react";
-import Button from "../../components/button";
+import Button from "../../../components/button";
 
 const ScheduledMessage = () => {
   const items = [1, 2, 3, 4, 5];

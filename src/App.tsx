@@ -4,11 +4,11 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Dashboard from "./pages/admin/dashboard";
-import ScheduledMessage from "./pages/admin/scheduled-message";
 import Sender from "./pages/admin/sender";
 import { Path } from "./constants/path";
-import Devices from "./pages/admin/devices";
 import Contacts from "./pages/admin/contacts";
+import Devices from "./pages/admin/devices";
+import ScheduledMessage from "./pages/admin/scheduled-message";
 
 function App() {
   return (

@@ -1,14 +1,18 @@
 import { FormProvider, useForm } from "react-hook-form";
-import TextInput from "../../components/text-input";
-import Button from "../../components/button";
-import Modal from "../../components/modal";
+import TextInput from "../../../components/text-input";
+import Button from "../../../components/button";
+import Modal from "../../../components/modal";
 import { useEffect, useState } from "react";
-import useApi from "../../hooks/use-api";
-import type { BaseResponse } from "../../models/base-response";
+import useApi from "../../../hooks/use-api";
+import type { BaseResponse } from "../../../models/base-response";
 import { toast } from "sonner";
-import { type Datum, type SenderResponse } from "../../models/sender-responses";
-import { Edit, Trash } from "lucide-react";
-import ModalConfirm from "../../components/modal-confirm";
+import {
+  type Datum,
+  type SenderResponse,
+} from "../../../models/sender-responses";
+import ModalConfirm from "../../../components/modal-confirm";
+import EmptyState from "../../../components/empty-state";
+import ItemSender from "./components/item-sender";
 
 const Sender = () => {
   const methods = useForm();
@@ -64,8 +68,11 @@ const Sender = () => {
   }
 
   const onSubmit = (data: unknown) => {
+    const url = selectedSender
+      ? `sender/update/${selectedSender.id}`
+      : "sender/store";
     reqAddSender.request(
-      { method: "POST", url: "sender/store", data: data },
+      { method: "POST", url: url, data: data },
       {
         showErrorToast: true,
         onSuccess: (data) => {
@@ -92,6 +99,7 @@ const Sender = () => {
                 <TextInput
                   label="Fonnte Token"
                   name="fonnte_token"
+                  value={`${selectedSender ? selectedSender.token : ""}`}
                   rules={{
                     required: "Token wajib di isi",
                   }}
@@ -102,7 +110,9 @@ const Sender = () => {
                   <TextInput
                     name="country_code"
                     type="number"
-                    value="62"
+                    value={`${
+                      selectedSender ? selectedSender.country_code : 62
+                    }`}
                     isFull={true}
                     rules={{
                       required: "CC wajib di isi",
@@ -114,43 +124,20 @@ const Sender = () => {
                       required: "Nomor Telepon Wajib Di isi",
                     }}
                     name="phone"
+                    value={`${selectedSender ? selectedSender.phone : ""}`}
                     classInput="w-80 ml-3"
                   />
                 </div>
-                <Button text="Tambah" type="submit" className="mt-2 w-full" />
+                <Button
+                  text={`${selectedSender ? "Perbarui" : "Tambah"}`}
+                  type="submit"
+                  className="mt-2 w-full"
+                />
               </div>
             </form>
           </FormProvider>
         </div>
       </Modal>
-    );
-  };
-
-  interface ItemSenderProps {
-    data: Datum;
-  }
-  const ItemContact = ({ data }: ItemSenderProps) => {
-    return (
-      <div className="flex items-center mb-5" key={data.id}>
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLMI5YxZE03Vnj-s-sth2_JxlPd30Zy7yEGg&s"
-          className="ml-2 h-5 w-5 cursor-pointer rounded-full shadow-lg lg:h-10 lg:w-10 mr-4"
-          id="options-menu"
-          aria-haspopup="true"
-          aria-expanded="true"
-        />
-        <div className="flex flex-col flex-1">
-          <span>{data.phone}</span>1
-        </div>
-        <Trash
-          onClick={() => {
-            openDialogConfirm();
-            setSelectedSender(data);
-          }}
-          className="text-red-500 size-4 mr-3"
-        />
-        <Edit className="text-blue-600 size-4" />
-      </div>
     );
   };
 
@@ -172,7 +159,23 @@ const Sender = () => {
             </div>
           </FormProvider>
         </div>
-        {dataSender && dataSender.map((data) => <ItemContact data={data} />)}
+        {dataSender &&
+          dataSender.map((data) => (
+            <ItemSender
+              data={data}
+              onDelete={function (): void {
+                openDialogConfirm();
+                setSelectedSender(data);
+              }}
+              onEdit={function (): void {
+                setSelectedSender(data);
+                openAddDialog();
+              }}
+            />
+          ))}
+        {dataSender.length == 0 && (
+          <EmptyState text="Tidak ada data pengirim" />
+        )}
       </div>
       <ModalAddContact />
       <ModalConfirm
