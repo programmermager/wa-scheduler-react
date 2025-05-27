@@ -13,6 +13,7 @@ import {
 import ModalConfirm from "../../../components/modal-confirm";
 import EmptyState from "../../../components/empty-state";
 import ItemSender from "./components/item-sender";
+import Pagination from "../../../components/pagination";
 
 const Sender = () => {
   const methods = useForm();
@@ -32,20 +33,24 @@ const Sender = () => {
   const reqSender = useApi<BaseResponse>();
   const reqDeleteSender = useApi();
   const [dataSender, setDataSender] = useState<Datum[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
     reqSenders();
-  }, []);
+  }, [page]);
 
   function reqSenders() {
     reqSender.request(
       {
         method: "GET",
         url: "sender",
+        params: {'page' : page}
       },
       {
         onSuccess: (data) => {
           const resp = data as SenderResponse;
+          setTotalPage(resp.data.last_page);
           setDataSender(resp.data.data);
         },
       }
@@ -163,6 +168,7 @@ const Sender = () => {
           dataSender.map((data) => (
             <ItemSender
               data={data}
+              key={data.id}
               onDelete={function (): void {
                 openDialogConfirm();
                 setSelectedSender(data);
@@ -176,6 +182,16 @@ const Sender = () => {
         {dataSender.length == 0 && (
           <EmptyState text="Tidak ada data pengirim" />
         )}
+        <Pagination current={page} total={totalPage} onTapNext={()=> {
+         
+          if(page < totalPage) {
+            setPage(page + 1);
+          }
+        }} onTapPrev={() => {
+          if(page > 1) {
+            setPage(page - 1);
+          }
+        }}/>
       </div>
       <ModalAddContact />
       <ModalConfirm
