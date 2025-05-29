@@ -79,3 +79,27 @@ const Contacts = () => {
 };
 
 export default Contacts;
+
+/* 
+REQUIREMENT : 
+1. PAGINATION
+2. SEARCH
+
+
+ADD :
+1. input nama
+2. input nomor
+
+LIST : 
+1. nama
+2. phone number
+
+DELETE : 
+1. add confirm dialog
+2. delete
+
+EDIT : 
+1. input nama
+2. input nomor
+
+*/

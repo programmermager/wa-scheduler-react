@@ -37,7 +37,7 @@ const Sender = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [search, setSearch] = useState("");
 
-  const handleSubmitSearch = (e) => {
+  const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     reqSenders({ search: search });
   };

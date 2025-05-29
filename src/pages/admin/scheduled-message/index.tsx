@@ -40,3 +40,34 @@ const ScheduledMessage = () => {
 };
 
 export default ScheduledMessage;
+
+/* 
+REQUIREMENT : 
+1. PAGINATION
+2. NO SEARCH
+
+
+ADD :
+1. choose / input manual receipent
+2. choose sender
+3. input message
+4. set schedule message send
+
+LIST : 
+1. recepient info
+2. sender info
+3. message
+4. time scheduled
+5. status message
+5. action delete, reschedule, edit
+
+DELETE : 
+1. add confirm dialog
+2. delete
+
+EDIT : 
+1. edit message 
+2. edit sender
+3. edit time
+
+*/
