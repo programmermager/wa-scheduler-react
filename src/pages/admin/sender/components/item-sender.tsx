@@ -17,7 +17,13 @@ const ItemSender = ({ data, onDelete, onEdit }: ItemSenderProps) => {
         aria-expanded="true"
       />
       <div className="flex flex-col flex-1">
-        <span>{data.phone}</span>
+        <span>
+          {data.country_code}
+          {data.phone}
+        </span>
+        <span className="text-sm text-gray-500">
+          Account Token : {data.token}
+        </span>
       </div>
       <Trash onClick={onDelete} className="text-red-500 size-4 mr-3" />
       <Edit onClick={onEdit} className="text-blue-600 size-4" />

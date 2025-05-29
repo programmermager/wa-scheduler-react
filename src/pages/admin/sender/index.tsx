@@ -35,17 +35,24 @@ const Sender = () => {
   const [dataSender, setDataSender] = useState<Datum[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [search, setSearch] = useState("");
+
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    reqSenders({ search: search });
+  };
 
   useEffect(() => {
     reqSenders();
   }, [page]);
 
-  function reqSenders() {
+  function reqSenders({ search }: { search?: string | undefined } = {}) {
+    const params = { page: page, ...(search && { search }) };
     reqSender.request(
       {
         method: "GET",
         url: "sender",
-        params: {'page' : page}
+        params: params,
       },
       {
         onSuccess: (data) => {
@@ -151,17 +158,20 @@ const Sender = () => {
       <div className="flex flex-col">
         <div className="mb-5">
           <FormProvider {...methods}>
-            <div className="flex">
-              <TextInput
-                isFull={true}
-                placeholder="Masukkan Nomor Telepon atau Nama"
-              />
-              <Button
-                text="Tambah Pengirim"
-                className="ml-4"
-                onClick={openAddDialog}
-              />
-            </div>
+            <form onSubmit={handleSubmitSearch}>
+              <div className="flex">
+                <TextInput
+                  onChange={(e) => setSearch(e.target.value)}
+                  isFull={true}
+                  placeholder="Masukkan Nomor Telepon atau Account Token"
+                />
+                <Button
+                  text="Tambah Pengirim"
+                  className="ml-4"
+                  onClick={openAddDialog}
+                />
+              </div>
+            </form>
           </FormProvider>
         </div>
         {dataSender &&
@@ -182,16 +192,20 @@ const Sender = () => {
         {dataSender.length == 0 && (
           <EmptyState text="Tidak ada data pengirim" />
         )}
-        <Pagination current={page} total={totalPage} onTapNext={()=> {
-         
-          if(page < totalPage) {
-            setPage(page + 1);
-          }
-        }} onTapPrev={() => {
-          if(page > 1) {
-            setPage(page - 1);
-          }
-        }}/>
+        <Pagination
+          current={page}
+          total={totalPage}
+          onTapNext={() => {
+            if (page < totalPage) {
+              setPage(page + 1);
+            }
+          }}
+          onTapPrev={() => {
+            if (page > 1) {
+              setPage(page - 1);
+            }
+          }}
+        />
       </div>
       <ModalAddContact />
       <ModalConfirm
