@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import axios from "axios";
 import type { AxiosRequestConfig } from "axios";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 interface RequestOptions<T = unknown> {
   showErrorToast?: boolean;
@@ -24,6 +25,7 @@ function useApi<T>(): UseApiResult<T> {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
   const headers = {
@@ -32,10 +34,22 @@ function useApi<T>(): UseApiResult<T> {
   };
 
   const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "https://api.example.com",
+    baseURL: import.meta.env.VITE_API_URL,
     timeout: 10000,
     headers: headers,
   });
+
+  axiosInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response?.status === 401) {
+        localStorage.removeItem("token");
+        navigate("/login");
+        toast.error("Session expired, please login again");
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const request = useCallback(
     async (config: AxiosRequestConfig, options: RequestOptions<T> = {}) => {

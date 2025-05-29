@@ -4,6 +4,7 @@ import Button from "./button";
 interface ModalProps {
   title: string;
   msg: string;
+  btnCloseTitle?: string;
   onBtnPosTap: () => void;
   isOpen: boolean;
   handleClose: () => void;
@@ -15,6 +16,7 @@ const ModalConfirm = ({
   onBtnPosTap,
   title,
   msg,
+  btnCloseTitle = "Hapus",
 }: ModalProps) => {
   if (!isOpen) return null;
 
@@ -41,18 +43,14 @@ const ModalConfirm = ({
           <h2 className="text-base">{msg}</h2>
           <div className="flex flex-row gap-2">
             <Button
-              text="Hapus"
-              className="w-full"
+              text={btnCloseTitle}
+              className="w-full  bg-red-600"
               onClick={() => {
                 onBtnPosTap();
                 handleClose();
               }}
             />
-            <Button
-              text="Tutup"
-              className="w-full bg-red-600"
-              onClick={handleClose}
-            />
+            <Button text="Tutup" className="w-full" onClick={handleClose} />
           </div>
         </div>
       </div>
