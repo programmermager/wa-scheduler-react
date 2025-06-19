@@ -43,6 +43,10 @@ const Sender = () => {
   };
 
   useEffect(() => {
+    if (!isAddDialogOpen) setSelectedSender(null);
+  }, [isAddDialogOpen]);
+
+  useEffect(() => {
     reqSenders();
   }, [page]);
 

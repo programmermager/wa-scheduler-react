@@ -1,4 +1,3 @@
-// hooks/useApi.ts
 import { useState, useCallback } from "react";
 import axios from "axios";
 import type { AxiosRequestConfig } from "axios";
